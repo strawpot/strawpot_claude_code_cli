@@ -252,6 +252,63 @@ func TestCmdBuild_PermissionMode(t *testing.T) {
 	assertSequence(t, cmd, "--permission-mode", "auto")
 }
 
+func TestCmdBuild_DangerouslySkipPermissions_Default(t *testing.T) {
+	tmpDir := t.TempDir()
+	wsDir := filepath.Join(tmpDir, "workspace")
+
+	args := []string{
+		"--agent-workspace-dir", wsDir,
+	}
+
+	output := captureBuildOutput(t, args)
+
+	var result map[string]interface{}
+	json.Unmarshal(output, &result)
+
+	cmd := result["cmd"].([]interface{})
+	assertContains(t, cmd, "--dangerously-skip-permissions")
+}
+
+func TestCmdBuild_DangerouslySkipPermissions_ExplicitTrue(t *testing.T) {
+	tmpDir := t.TempDir()
+	wsDir := filepath.Join(tmpDir, "workspace")
+
+	args := []string{
+		"--agent-workspace-dir", wsDir,
+		"--config", `{"dangerously_skip_permissions":true}`,
+	}
+
+	output := captureBuildOutput(t, args)
+
+	var result map[string]interface{}
+	json.Unmarshal(output, &result)
+
+	cmd := result["cmd"].([]interface{})
+	assertContains(t, cmd, "--dangerously-skip-permissions")
+}
+
+func TestCmdBuild_DangerouslySkipPermissions_Disabled(t *testing.T) {
+	tmpDir := t.TempDir()
+	wsDir := filepath.Join(tmpDir, "workspace")
+
+	args := []string{
+		"--agent-workspace-dir", wsDir,
+		"--config", `{"dangerously_skip_permissions":false}`,
+	}
+
+	output := captureBuildOutput(t, args)
+
+	var result map[string]interface{}
+	json.Unmarshal(output, &result)
+
+	cmd := result["cmd"].([]interface{})
+	for _, v := range cmd {
+		if v == "--dangerously-skip-permissions" {
+			t.Error("cmd should NOT contain --dangerously-skip-permissions when disabled")
+		}
+	}
+}
+
 // --- helpers ---
 
 // captureBuildOutput runs cmdBuild and captures its stdout JSON output.
