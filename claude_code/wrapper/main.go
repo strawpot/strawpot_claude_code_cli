@@ -226,6 +226,11 @@ func cmdBuild(args []string) {
 		cmd = append(cmd, "--permission-mode", pm)
 	}
 
+	// Default: enable --dangerously-skip-permissions unless explicitly disabled.
+	if skip, ok := config["dangerously_skip_permissions"].(bool); !ok || skip {
+		cmd = append(cmd, "--dangerously-skip-permissions")
+	}
+
 	// Single --add-dir pointing to the agent workspace.
 	// Claude Code discovers .claude/skills/ within it natively.
 	cmd = append(cmd, "--add-dir", ba.AgentWorkspaceDir)

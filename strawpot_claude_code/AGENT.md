@@ -21,6 +21,10 @@ metadata:
         type: string
         default: claude-sonnet-4-6
         description: Model to use for Claude Code
+      dangerously_skip_permissions:
+        type: boolean
+        default: true
+        description: Skip permission prompts (enabled by default, set to false to require approval)
     env:
       ANTHROPIC_API_KEY:
         required: false
