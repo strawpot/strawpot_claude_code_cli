@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "claude_code/**"
+      - "strawpot_claude_code/**"
       - ".goreleaser.yaml"
     tags:
       - "v*"

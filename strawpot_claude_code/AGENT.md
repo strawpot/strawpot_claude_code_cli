@@ -7,6 +7,9 @@ metadata:
     bin:
       macos: strawpot_claude_code
       linux: strawpot_claude_code
+    install:
+      macos: curl -fsSL https://raw.githubusercontent.com/strawpot/strawpot_claude_code_cli/main/strawpot_claude_code/install.sh | sh
+      linux: curl -fsSL https://raw.githubusercontent.com/strawpot/strawpot_claude_code_cli/main/strawpot_claude_code/install.sh | sh
     tools:
       claude:
         description: Claude Code CLI

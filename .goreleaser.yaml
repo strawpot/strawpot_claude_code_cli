@@ -16,15 +16,8 @@ builds:
       - -s -w
 
 archives:
-  - format: tar.gz
-    name_template: "{{ .ProjectName }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}"
-    files:
-      - src: claude_code/AGENT.md
-        dst: .
-        strip_parent: true
-
-checksum:
-  name_template: checksums.txt
+  - formats: [binary]
+    name_template: "strawpot_claude_code-{{ .Os }}-{{ .Arch }}"
 
 release:
   github:
