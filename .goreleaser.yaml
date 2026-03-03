@@ -1,0 +1,32 @@
+version: 2
+
+builds:
+  - dir: claude_code/wrapper
+    main: .
+    binary: strawpot_claude_code
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}"
+    files:
+      - src: claude_code/AGENT.md
+        dst: .
+        strip_parent: true
+
+checksum:
+  name_template: checksums.txt
+
+release:
+  github:
+    owner: strawpot
+    name: strawpot_claude_code_cli
