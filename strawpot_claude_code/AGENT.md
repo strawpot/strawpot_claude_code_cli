@@ -1,5 +1,5 @@
 ---
-name: claude-code
+name: strawpot-claude-code
 description: Claude Code agent
 metadata:
   version: "0.1.0"
