@@ -74,7 +74,7 @@ Pass via `--config`:
 
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `model` | string | `claude-sonnet-4-6` | Model to use |
+| `model` | string | _(none)_ | Model override (omit to use claude CLI default) |
 | `dangerously_skip_permissions` | boolean | `true` | Skip permission prompts. Set to `false` to require approval for each action. |
 
 ### Environment variables
