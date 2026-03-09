@@ -233,6 +233,61 @@ func TestCmdBuild_RolesSymlinks(t *testing.T) {
 	}
 }
 
+func TestCmdBuild_SkillsSymlinkedEntries(t *testing.T) {
+	tmpDir := t.TempDir()
+	wsDir := filepath.Join(tmpDir, "workspace")
+	skillsDir := filepath.Join(tmpDir, "staged-skills")
+
+	// Create a real skill directory elsewhere and symlink it into skillsDir
+	realSkill := filepath.Join(tmpDir, "real-skills", "denden")
+	os.MkdirAll(realSkill, 0o755)
+	os.MkdirAll(skillsDir, 0o755)
+	os.Symlink(realSkill, filepath.Join(skillsDir, "denden"))
+
+	args := []string{
+		"--agent-workspace-dir", wsDir,
+		"--skills-dir", skillsDir,
+	}
+
+	captureBuildOutput(t, args)
+
+	// Symlinked skill should be linked into workspace
+	link := filepath.Join(wsDir, ".claude", "skills", "denden")
+	if _, err := os.Lstat(link); err != nil {
+		t.Errorf("Symlinked skill 'denden' not created in workspace: %v", err)
+	}
+}
+
+func TestCmdBuild_RolesSymlinkedEntries(t *testing.T) {
+	tmpDir := t.TempDir()
+	wsDir := filepath.Join(tmpDir, "workspace")
+	rolesDir := filepath.Join(tmpDir, "staged-roles")
+
+	// Create real role directories elsewhere and symlink them into rolesDir
+	realRole := filepath.Join(tmpDir, "real-roles", "ai-employee")
+	os.MkdirAll(realRole, 0o755)
+	os.MkdirAll(rolesDir, 0o755)
+	os.Symlink(realRole, filepath.Join(rolesDir, "ai-employee"))
+
+	args := []string{
+		"--agent-workspace-dir", wsDir,
+		"--roles-dir", rolesDir,
+	}
+
+	captureBuildOutput(t, args)
+
+	// Symlinked role should be linked into workspace
+	link := filepath.Join(wsDir, "roles", "ai-employee")
+	target, err := os.Readlink(link)
+	if err != nil {
+		t.Fatalf("Symlinked role 'ai-employee' not created in workspace: %v", err)
+	}
+	expected := filepath.Join(rolesDir, "ai-employee")
+	if target != expected {
+		t.Errorf("role link -> %q, want %q", target, expected)
+	}
+}
+
 func TestCmdBuild_PermissionMode(t *testing.T) {
 	tmpDir := t.TempDir()
 	wsDir := filepath.Join(tmpDir, "workspace")
