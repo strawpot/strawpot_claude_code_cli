@@ -18,8 +18,7 @@ metadata:
     params:
       model:
         type: string
-        default: claude-sonnet-4-6
-        description: Model to use for Claude Code
+        description: Model override (omit to use claude CLI default)
       dangerously_skip_permissions:
         type: boolean
         default: true
