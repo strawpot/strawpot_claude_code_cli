@@ -2,7 +2,6 @@
 name: strawpot-claude-code
 description: Claude Code agent
 metadata:
-  version: "0.1.0"
   strawpot:
     bin:
       macos: strawpot_claude_code
