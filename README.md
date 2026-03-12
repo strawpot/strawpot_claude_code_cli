@@ -47,7 +47,7 @@ Output:
 
 ```json
 {
-  "cmd": ["claude", "-p", "fix the bug", "--system-prompt", "/path/to/workspace/prompt.md", "--model", "claude-opus-4-6", "--dangerously-skip-permissions", "--add-dir", "/path/to/workspace"],
+  "cmd": ["claude", "-p", "fix the bug", "--system-prompt-file", "/path/to/workspace/prompt.md", "--model", "claude-opus-4-6", "--dangerously-skip-permissions", "--add-dir", "/path/to/workspace"],
   "cwd": "/path/to/project"
 }
 ```

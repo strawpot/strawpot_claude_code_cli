@@ -227,7 +227,7 @@ func cmdBuild(args []string) {
 		cmd = append(cmd, "-p", ba.Task)
 	}
 
-	cmd = append(cmd, "--system-prompt", promptFile)
+	cmd = append(cmd, "--system-prompt-file", promptFile)
 
 	if model, ok := config["model"].(string); ok && model != "" {
 		cmd = append(cmd, "--model", model)

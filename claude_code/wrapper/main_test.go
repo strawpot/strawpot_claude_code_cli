@@ -97,7 +97,7 @@ func TestCmdBuild_MinimalArgs(t *testing.T) {
 	}
 
 	assertContains(t, cmd, "claude")
-	assertContains(t, cmd, "--system-prompt")
+	assertContains(t, cmd, "--system-prompt-file")
 	assertContains(t, cmd, "--add-dir")
 	assertContains(t, cmd, wsDir)
 
