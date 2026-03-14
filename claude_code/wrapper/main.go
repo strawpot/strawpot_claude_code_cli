@@ -46,7 +46,7 @@ func cmdSetup() {
 		os.Exit(1)
 	}
 
-	cmd := exec.Command(claudePath, "/login")
+	cmd := exec.Command(claudePath, "auth", "login")
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
