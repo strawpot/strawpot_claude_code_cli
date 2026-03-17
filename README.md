@@ -25,7 +25,7 @@ The wrapper exposes two subcommands:
 
 ### `setup`
 
-Runs `claude /login` to authenticate with Anthropic.
+Runs `claude auth login` to authenticate with Anthropic.
 
 ```sh
 strawpot_claude_code setup
