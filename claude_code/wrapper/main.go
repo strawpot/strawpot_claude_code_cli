@@ -249,6 +249,10 @@ func cmdBuild(args []string) {
 		cmd = append(cmd, "--dangerously-skip-permissions")
 	}
 
+	// Disallow Claude Code's native scheduling tools — StrawPot manages
+	// scheduling through its own orchestrator (denden).
+	cmd = append(cmd, "--disallowedTools", "CronCreate,CronDelete,CronList")
+
 	// Single --add-dir pointing to the agent workspace.
 	// Claude Code discovers .claude/skills/ within it natively.
 	cmd = append(cmd, "--add-dir", ba.AgentWorkspaceDir)
