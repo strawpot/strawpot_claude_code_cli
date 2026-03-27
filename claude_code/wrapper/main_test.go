@@ -364,6 +364,25 @@ func TestCmdBuild_DangerouslySkipPermissions_Disabled(t *testing.T) {
 	}
 }
 
+func TestCmdBuild_StreamJsonOutputFormat(t *testing.T) {
+	tmpDir := t.TempDir()
+	wsDir := filepath.Join(tmpDir, "workspace")
+
+	args := []string{
+		"--agent-workspace-dir", wsDir,
+	}
+
+	output := captureBuildOutput(t, args)
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(output, &result); err != nil {
+		t.Fatalf("Failed to parse JSON output: %v", err)
+	}
+
+	cmd := result["cmd"].([]interface{})
+	assertSequence(t, cmd, "--output-format", "stream-json")
+}
+
 func TestCmdBuild_DisallowedSchedulingTools(t *testing.T) {
 	tmpDir := t.TempDir()
 	wsDir := filepath.Join(tmpDir, "workspace")

@@ -249,6 +249,10 @@ func cmdBuild(args []string) {
 		cmd = append(cmd, "--dangerously-skip-permissions")
 	}
 
+	// Stream-json output format: emits JSONL to stdout, including a final
+	// "result" message with token usage data for cost tracking.
+	cmd = append(cmd, "--output-format", "stream-json")
+
 	// Disallow Claude Code's native scheduling tools — StrawPot manages
 	// scheduling through its own orchestrator (denden).
 	cmd = append(cmd, "--disallowedTools", "CronCreate,CronDelete,CronList")
